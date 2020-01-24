@@ -10,6 +10,25 @@ import string
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
 
+def binaryToDecimal(binary):
+    """Converts a binary number into a decimal"""
+    # Revese binary input so index corresponds to correct power of 2
+    reversed_binary = binary[::-1]
+    # Keep track of decimal count
+    decimal = 0
+    # Iterate over reversed values
+    for i, value in enumerate(reversed_binary):
+        # Check if value at each index is 0 or 1
+        # If value is 0, ignore
+        # Remember, value is a string
+        if value == "0":
+            continue
+        # If value is 1, multiply 2 by i b/c index is equal to power
+        # Add this value to decimal variable
+        decimal += 2**i
+    return decimal
+
+
 def decode(digits, base):
     """Decode given digits in given base to number in base 10.
     digits: str -- string representation of number (in given base)
@@ -71,7 +90,8 @@ def main():
         base2 = int(args[2])
         # Convert given digits between bases
         result = convert(digits, base1, base2)
-        print('{} in base {} is {} in base {}'.format(digits, base1, result, base2))
+        print('{} in base {} is {} in base {}'.format(
+            digits, base1, result, base2))
     else:
         print('Usage: {} digits base1 base2'.format(sys.argv[0]))
         print('Converts digits from base1 to base2')
@@ -79,3 +99,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    print(binaryToDecimal('101010'))
