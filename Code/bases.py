@@ -10,7 +10,7 @@ import string
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
 
-def binaryToDecimal(binary):
+def binary_to_decimal(binary):
     """Converts a binary number into a decimal"""
     # Revese binary input so index corresponds to correct power of 2
     reversed_binary = binary[::-1]
@@ -29,6 +29,21 @@ def binaryToDecimal(binary):
     return decimal
 
 
+def decimal_to_binary(decimal):
+    # Divide by 2 and print remainer backwards
+    # To hold binary numbers (remainders)
+    binary_result = ''
+    new_decimal = int(decimal)
+    while new_decimal > 0:
+        remainder = new_decimal % 2
+        print(remainder)
+        binary_result = str(remainder) + binary_result
+        new_decimal = int(new_decimal / 2)  # Updating
+
+        # result = str(binary_result).strip('[]')
+    return result = binary_result
+
+
 def decode(digits, base):
     """Decode given digits in given base to number in base 10.
     digits: str -- string representation of number (in given base)
@@ -36,10 +51,12 @@ def decode(digits, base):
     return: int -- integer representation of number (in base 10)"""
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
-    # TODO: Decode digits from binary (base 2)
-    # ...
-    # TODO: Decode digits from hexadecimal (base 16)
-    # ...
+    # Decode digits from binary (base 2)
+    # if base == 2
+    # bit_place = len(digit)
+    # Decode digits from hexadecimal (base 16)
+    values = {'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15}
+    # if base == 16
     # TODO: Decode digits from any base (2 up to 36)
     # ...
 
@@ -99,4 +116,5 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print(binaryToDecimal('101010'))
+    print(binary_to_decimal('101010'))
+    print(decimal_to_binary('10'))
