@@ -12,36 +12,25 @@ import string
 
 def binary_to_decimal(binary):
     """Converts a binary number into a decimal"""
-    # Revese binary input so index corresponds to correct power of 2
-    reversed_binary = binary[::-1]
-    # Keep track of decimal count
+    reversed_binary = binary[::-1]    # i = correct power when reversed
     decimal = 0
-    # Iterate over reversed values
     for i, value in enumerate(reversed_binary):
-        # Check if value at each index is 0 or 1
-        # If value is 0, ignore
-        # Remember, value is a string
         if value == "0":
-            continue
-        # If value is 1, multiply 2 by i b/c index is equal to power
-        # Add this value to decimal variable
-        decimal += 2**i
+            continue  # ignore 0 because no value
+        decimal += 2**i  # multiply 2 by i b/c index = power, add this value to decimal variable
     return decimal
+
+# Encode Binary to Decimal
 
 
 def decimal_to_binary(decimal):
-    # Divide by 2 and print remainer backwards
-    # To hold binary numbers (remainders)
     binary_result = ''
     new_decimal = int(decimal)
     while new_decimal > 0:
         remainder = new_decimal % 2
-        print(remainder)
         binary_result = str(remainder) + binary_result
-        new_decimal = int(new_decimal / 2)  # Updating
-
-        # result = str(binary_result).strip('[]')
-    return result = binary_result
+        new_decimal = int(new_decimal / 2)
+    return binary_result
 
 
 def decode(digits, base):
@@ -52,13 +41,12 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Decode digits from binary (base 2)
-    # if base == 2
-    # bit_place = len(digit)
-    # Decode digits from hexadecimal (base 16)
-    values = {'A': 10, 'B': 11, 'C': 12, 'D': 13, 'E': 14, 'F': 15}
-    # if base == 16
-    # TODO: Decode digits from any base (2 up to 36)
-    # ...
+    if base == 2:
+        # bit_place = len(digit)
+        # Decode digits from hexadecimal (base 16)
+        # if base == 16
+        # TODO: Decode digits from any base (2 up to 36)
+        # ...
 
 
 def encode(number, base):
@@ -70,8 +58,15 @@ def encode(number, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
     assert number >= 0, 'number is negative: {}'.format(number)
-    # TODO: Encode number in binary (base 2)
-    # ...
+    # ENCODE NUMBER TO BINARY
+    binary_result = ''
+    new_decimal = int(decimal)
+    while new_decimal > 0:
+        remainder = new_decimal % 2
+        binary_result = str(remainder) + binary_result
+        new_decimal = int(new_decimal / 2)
+    return binary_result
+
     # TODO: Encode number in hexadecimal (base 16)
     # ...
     # TODO: Encode number in any base (2 up to 36)
@@ -117,4 +112,4 @@ def main():
 if __name__ == '__main__':
     main()
     print(binary_to_decimal('101010'))
-    print(decimal_to_binary('10'))
+    print(decimal_to_binary('67'))

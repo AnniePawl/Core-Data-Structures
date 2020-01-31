@@ -18,6 +18,23 @@ def is_palindrome(text):
 
 
 def is_palindrome_iterative(text):
+      """is_palindrome_iterative return True if input text is a palindrome, and false if not"""
+    # Keep track of first and last index to work from outer letters towards middle.
+    inner = 0
+    outer = len(text)-1
+    # Ensure that middle letter hasn't been surpassed
+    while inner > outer:
+        if text(inner) != text(outer):
+            return False
+            print("Not a palindrome, sorry")
+        if text(inner) == text(outer):
+            # Shift index towards the middle of array
+            inner += 1
+            outer -= 1
+            print("You found a palindrome!")
+    return is_palindrome_iterative(text)
+
+
     # TODO: implement the is_palindrome function iteratively here
     pass
     # once implemented, change is_palindrome to call is_palindrome_iterative
