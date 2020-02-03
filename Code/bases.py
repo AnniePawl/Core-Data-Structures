@@ -12,15 +12,14 @@ import string
 
 def binary_to_decimal(binary):
     """Converts a binary number into a decimal"""
-    reversed_binary = binary[::-1]    # i = correct power when reversed
-    decimal = 0
+    reversed_binary = binary[::- 1]
+    # i = corresponds to correct power when reversed
+    decimal = 0  # keep track of sum
     for i, value in enumerate(reversed_binary):
         if value == "0":
             continue  # ignore 0 because no value
         decimal += 2**i  # multiply 2 by i b/c index = power, add this value to decimal variable
     return decimal
-
-# Encode Binary to Decimal
 
 
 def decimal_to_binary(decimal):
@@ -33,6 +32,18 @@ def decimal_to_binary(decimal):
     return binary_result
 
 
+def hex_to_decimal(hex_val):
+    #  Reverse hex value so power(of 16)corresponds to index
+    reversed_hex = hex_val[::-1]
+    decimal = 0
+    hex_conversion = string.hexdigits
+    for i, value in enumerate(reversed_hex):
+        # Index = power
+        new_value = hex_conversion.index(value.lower())
+        decimal += new_value * (16 ** i)
+    return decimal
+
+
 def decode(digits, base):
     """Decode given digits in given base to number in base 10.
     digits: str -- string representation of number (in given base)
@@ -42,9 +53,26 @@ def decode(digits, base):
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Decode digits from binary (base 2)
     if base == 2:
+        reversed_binary = digits[::-1]
+        decimal = 0
+        for i, value in enumerate(reversed_binary):
+            if value == "0":
+                continue
+            decimal += 2**i
+        return decimal
+
+    # Decode digits from hex (base 16)
+    if base == 16:
+        reversed_hex = digits[::-1]
+        decimal = 0
+        for i, value in enumerate(reversed_hex):
+            if value == '0':
+                continue
+            decimal += 16**i
+        return decimal
+
         # bit_place = len(digit)
-        # Decode digits from hexadecimal (base 16)
-        # if base == 16
+
         # TODO: Decode digits from any base (2 up to 36)
         # ...
 
@@ -113,3 +141,4 @@ if __name__ == '__main__':
     main()
     print(binary_to_decimal('101010'))
     print(decimal_to_binary('67'))
+    print(hex_to_decimal('FF'))
