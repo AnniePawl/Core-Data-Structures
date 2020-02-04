@@ -46,3 +46,4 @@ def main():
 if __name__ == '__main__':
     main()
     print(factorial_iterative(6))
+    print(factorial_iterative(5))
