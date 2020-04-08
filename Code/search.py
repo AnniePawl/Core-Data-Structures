@@ -20,6 +20,7 @@ def linear_search_iterative(array, item):
 
 def linear_search_recursive(array, item, index=0):
     # 0(1)
+    # Base cases
 
     if item is not None:
         if item == array[index]:
@@ -29,6 +30,16 @@ def linear_search_recursive(array, item, index=0):
 
     # once implemented, change linear_search to call linear_search_recursive
     # to verify that your recursive implementation passes all tests
+
+
+def linear_search_recursive1(list, target, index):
+        # base case
+    if list[index] == target:
+        return target  # found it!
+    if index == len(list):
+        return None  # did not find it
+    else:
+        return(linear_search_recursive1(list, target, index + 1))
 
 
 def binary_search(array, item):

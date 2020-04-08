@@ -10,22 +10,32 @@ import string
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
 
+# BINARY --> DECIMAL PSEUDOCODE
+# Think of 0 as "off", and 1 as "on"
+# Reverse string so that index corresponds w/ correct power
+# Create variable to keep track of sum
+# Start walking thru the binary value
+# If value 0, move on b/c it is "off"
+# If value is 1, raise 2(because binary) to the power of index(b/c index corresponds to power now)
+
 def binary_to_decimal(binary):
     """Converts a binary number(str) into a decimal(int)"""
     reversed_binary = binary[::- 1]
-    # i = corresponds to power of 2 when reversed
     decimal = 0  # keep track of sum
     for i, value in enumerate(reversed_binary):
         if value == "0":
-            continue  # ignore 0 because no value
+            continue  # ignore 0 b/c no value
         decimal += 2**i  # multiply 2 by i b/c i = exponent
     return decimal
+
+# DECIMAL --> BINARY PSEUDOCODE
+# Divide decimal by 2 until you can't anymore
+# Keep track of remainder each time
 
 
 def decimal_to_binary(decimal):
     """Converts a decimal(int) into binary(str)"""
     binary_result = ''
-    # new_decimal = int(decimal)
     while decimal > 0:
         remainder = decimal % 2
         binary_result = str(remainder) + binary_result
@@ -50,6 +60,7 @@ def decimal_to_hex(decimal):
     hex_conversion = string.hexdigits  # access letters a-f
     while decimal > 0:
         remainder = decimal % 16
+        hex_result = str(remainder) + hex_result
         decimal = int(decimal / 16)
     return hex_result
 
@@ -105,15 +116,6 @@ def convert(digits, base1, base2):
 
     number = decode(digits, base1)
     return encode(number, base2)
-
-    # TODO: Convert digits from base 2 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
-    # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
 
 
 def main():

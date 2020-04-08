@@ -1,3 +1,5 @@
+import string
+
 
 def binary_to_decimal(binary):
     """Converts a binary number into a decimal"""
@@ -20,5 +22,30 @@ def decimal_to_binary(decimal):
     return binary_result
 
 
+def hex_to_decimal(hex_val):
+    """Converts hex value(str) to decimal(int)"""
+    reversed_hex = hex_val[::-1]  # reverse so power(of 16) = index
+    decimal = 0  # keep track of sum
+    hex_conversion = string.hexdigits  # access letters a-f
+    for i, value in enumerate(reversed_hex):  # index = power
+        new_value = hex_conversion.index(value.lower())
+        decimal += new_value * (16 ** i)
+    return decimal
+
+
+def decimal_to_hex(decimal):
+    """Converts decimal(int) to hex value(str)"""
+    hex_result = ''
+    hex_conversion = string.hexdigits  # access letters a-f
+    while decimal > 0:
+        remainder = decimal % 16
+        hex_result = str(remainder) + hex_result
+        decimal = int(decimal / 16)
+    return hex_result
+
+
 if __name__ == '__main__':
-    print(binary_to_decimal(101010))
+    # print(binary_to_decimal("101010"))
+    print(decimal_to_binary(256))
+    # print(hex_to_decimal("FF"))
+    # print(decimal_to_hex(255))

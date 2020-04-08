@@ -22,14 +22,29 @@ def factorial_iterative(n):
     return factorial
 
 
+def factorial_iterative1(n):
+    factorial = 1
+    for i in range(1, n+1):
+        factorial = factorial * (i + 1)
+
+
 def factorial_recursive(n):
+    # Kind of like passing the buck / asking for help
+    # 3! - 3*2*1 same as 3*2!
     # check if n is one of the base cases
+    # base case stops recursion
     if n == 0 or n == 1:
         return 1
     # check if n is an integer larger than the base cases
+    # Recurssive case
     elif n > 1:
         # call function recursively
         return n * factorial_recursive(n - 1)
+
+# Is the number one?
+# If so , return one
+# If the number is more than one,
+# return number * number- 1
 
 
 def main():
