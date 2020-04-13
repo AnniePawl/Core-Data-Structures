@@ -1,5 +1,13 @@
 import string
 
+# BINARY --> DECIMAL PSEUDOCODE
+# Think of 0 as "off", and 1 as "on"
+# Reverse string so that index corresponds w/ correct power
+# Create variable to keep track of sum
+# Start walking thru the binary value
+# If value 0, move on b/c it is "off"
+# If value is 1, raise 2(because binary) to the power of index(b/c index corresponds to power now)
+
 
 def binary_to_decimal(binary):
     """Converts a binary number into a decimal"""
@@ -45,7 +53,7 @@ def decimal_to_hex(decimal):
 
 
 if __name__ == '__main__':
-    # print(binary_to_decimal("101010"))
+    print(binary_to_decimal("101010"))
     print(decimal_to_binary(256))
-    # print(hex_to_decimal("FF"))
-    # print(decimal_to_hex(255))
+    print(hex_to_decimal("FF"))
+    print(decimal_to_hex(255))

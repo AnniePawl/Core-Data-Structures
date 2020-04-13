@@ -10,61 +10,6 @@ import string
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
 
-# BINARY --> DECIMAL PSEUDOCODE
-# Think of 0 as "off", and 1 as "on"
-# Reverse string so that index corresponds w/ correct power
-# Create variable to keep track of sum
-# Start walking thru the binary value
-# If value 0, move on b/c it is "off"
-# If value is 1, raise 2(because binary) to the power of index(b/c index corresponds to power now)
-
-def binary_to_decimal(binary):
-    """Converts a binary number(str) into a decimal(int)"""
-    reversed_binary = binary[::- 1]
-    decimal = 0  # keep track of sum
-    for i, value in enumerate(reversed_binary):
-        if value == "0":
-            continue  # ignore 0 b/c no value
-        decimal += 2**i  # multiply 2 by i b/c i = exponent
-    return decimal
-
-# DECIMAL --> BINARY PSEUDOCODE
-# Divide decimal by 2 until you can't anymore
-# Keep track of remainder each time
-
-
-def decimal_to_binary(decimal):
-    """Converts a decimal(int) into binary(str)"""
-    binary_result = ''
-    while decimal > 0:
-        remainder = decimal % 2
-        binary_result = str(remainder) + binary_result
-        decimal = int(decimal / 2)
-    return binary_result
-
-
-def hex_to_decimal(hex_val):
-    """Converts hex value(str) to decimal(int)"""
-    reversed_hex = hex_val[::-1]  # reverse so power(of 16) = index
-    decimal = 0  # keep track of sum
-    hex_conversion = string.hexdigits  # access letters a-f
-    for i, value in enumerate(reversed_hex):  # index = power
-        new_value = hex_conversion.index(value.lower())
-        decimal += new_value * (16 ** i)
-    return decimal
-
-
-def decimal_to_hex(decimal):
-    """Converts decimal(int) to hex value(str)"""
-    hex_result = ''
-    hex_conversion = string.hexdigits  # access letters a-f
-    while decimal > 0:
-        remainder = decimal % 16
-        hex_result = str(remainder) + hex_result
-        decimal = int(decimal / 16)
-    return hex_result
-
-
 def decode(digits, base):
     """Decode given digits in given base to number in base 10.
     digits: str -- string representation of number (in given base)
@@ -88,6 +33,7 @@ def encode(number, base):
     number: int -- integer representation of number (in base 10)
     base: int -- base to convert to
     return: str -- string representation of number (in given base)"""
+
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Handle unsigned numbers only for now
@@ -95,12 +41,12 @@ def encode(number, base):
 
     encoded_result = ''
     while number > 0:
-        remainder = number % base
-        number = int(number/base)
 
+        remainder = number % base
+        number = number/base
         conversion = string.ascii_lowercase
         converted_value = conversion.index()
-        encoded_result = converted_value
+        encoded_result = remainder + converted_value
     return encoded_result
 
 
@@ -137,14 +83,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-    print('binary to decimal:')
-    print(binary_to_decimal('101010'))
-    print('decimal to binay:')
-    print(decimal_to_binary(10))
-    print('hex to decimal:')
-    print(hex_to_decimal('FF'))
-    print('decimal to hex:')
-    print(decimal_to_hex(185))
     print("DECODE")
     print(decode('14414', 5))
     print(decode('1010', 2))
