@@ -10,42 +10,40 @@ import string
 def is_palindrome(text):
     """A string of characters is a palindrome if it reads the same forwards and
     backwards, ignoring punctuation, whitespace, and letter casing."""
-    # implement is_palindrome_iterative and is_palindrome_recursive below, then
-    # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    # return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
 
 
 def is_palindrome_iterative(text):
-      """is_palindrome_iterative return True if input text is a palindrome, and false if not"""
-    # Keep track of first and last index to work from outer letters towards middle.
-    inner = 0
-    outer = len(text)-1
-    # Ensure that middle letter hasn't been surpassed
-    while inner > outer:
-        if text(inner) != text(outer):
+    # Clean the text
+    text = ''.join(letter for letter in text.lower() if 'a' <= letter <= 'z')
+    # Start at either end of the word, work towards middle
+    left_index = 0  # keep track of left index
+    right_index = len(text)-1  # keep track of right index
+    # Ensure middle hasn't been surpased
+    while left_index <= right_index:
+        if text[left_index].lower() != text[right_index].lower():
             return False
-            print("Not a palindrome, sorry")
-        if text(inner) == text(outer):
-            # Shift index towards the middle of array
-            inner += 1
-            outer -= 1
-            print("You found a palindrome!")
-    return is_palindrome_iterative(text)
-
-
-    # TODO: implement the is_palindrome function iteratively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_iterative
-    # to verify that your iterative implementation passes all tests
+        else:  # if letters match, shift indices one step towards middle
+            left_index += 1
+            right_index -= 1
+    return True
 
 
 def is_palindrome_recursive(text, left=None, right=None):
-    # TODO: implement the is_palindrome function recursively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_recursive
-    # to verify that your iterative implementation passes all tests
+    #  Clean the text
+    text = ''.join(letter for letter in text.lower() if 'a' <= letter <= 'z')
+
+    if left is None:
+        left = 0
+        right = len(text)-1
+    if left >= right:
+        return True
+    if text[right] == text[left]:
+        return is_palindrome_recursive(text, left + 1, right - 1)
+    else:
+        return False
 
 
 def main():

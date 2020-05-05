@@ -41,12 +41,10 @@ def encode(number, base):
 
     encoded_result = ''
     while number > 0:
-
-        remainder = number % base
-        number = number/base
-        conversion = string.ascii_lowercase
-        converted_value = conversion.index()
-        encoded_result = remainder + converted_value
+        remainder = int(number % base)
+        number = number//base
+        conversion = string.printable
+        encoded_result += conversion[remainder]
     return encoded_result
 
 

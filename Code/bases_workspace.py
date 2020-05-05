@@ -47,7 +47,7 @@ def decimal_to_hex(decimal):
     hex_conversion = string.hexdigits  # access letters a-f
     while decimal > 0:
         remainder = decimal % 16
-        hex_result = str(remainder) + hex_result
+        hex_result = hex_conversion[remainder] + hex_result
         decimal = int(decimal / 16)
     return hex_result
 
