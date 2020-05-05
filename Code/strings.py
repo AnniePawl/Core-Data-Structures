@@ -1,5 +1,6 @@
 #!python
 
+
 def contains(text, pattern):
     """Return a boolean indicating whether pattern occurs in text."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
@@ -12,7 +13,21 @@ def find_index(text, pattern):
     or None if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_index here (iteratively and/or recursively)
+
+    text_index = 0  # start at beginning of text
+    if pattern == "":  # check if pattern contains anything
+        return text_index
+
+    # as long as there are still letters to look thru...
+    while text_index != len(text)-1:
+        for i in range(len(pattern)):
+            if text_index + i < len(text):
+                # check letter from text again letter from pattern
+                if text[text_index + i] != pattern[i]:
+                    break  # stop if no match
+                if i == len(pattern) - 1:
+                    return text_index  # return index where pattern starts
+        text_index += 1  # move on to next letter in text
 
 
 def find_all_indexes(text, pattern):
@@ -20,7 +35,6 @@ def find_all_indexes(text, pattern):
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_all_indexes here (iteratively and/or recursively)
 
 
 def test_string_algorithms(text, pattern):
