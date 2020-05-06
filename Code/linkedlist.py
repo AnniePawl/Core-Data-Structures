@@ -1,6 +1,6 @@
 #!python
 
-
+# Initialize Node Class
 class Node(object):
 
     def __init__(self, data):
@@ -12,7 +12,7 @@ class Node(object):
         """Return a string representation of this node."""
         return 'Node({!r})'.format(self.data)
 
-
+# Initialize LinkedList Class
 class LinkedList(object):
 
     def __init__(self, iterable=None):
@@ -57,76 +57,73 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
-        # Node counter initialized to zero
-        node_count = 0
-        # Start at the head node
-        node = self.head
-        # Loop until the node is None, which is one node too far past the tail
+        Running time: O(n) because it finds the length linearly  """
+    
+        node_count = 0 # initialize node count at 0 
+        node = self.head # start at beginning of ll
+        # Loop until the node is None (one past tail)
         while node is not None:
-            # Count one for this node
-            node_count += 1
-            # Skip to the next node
-            node = node.next
-        # Now node_count contains the number of nodes
-        return node_count
+            node_count += 1 # increase node count
+            node = node.next # skip to next node
+        return node_count # now node_count reflect num of nodes
 
     def get_at_index(self, index):
-        """Return the item at the given index in this linked list, or raise ValueError if the given index is out of range of the list size."""
-
+        """Return the item at the given index in this linked list, or
+        raise ValueError if the given index is out of range of the list size.
+        Best case running time: O(1) if list is empty or item is first
+        Worst case running time: O(n) if index is later in list or not found"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
 
-        # TODO: Find the node at the given index and return its data
-        node = self.head  # initialize at head of list
-        count = 0
-        while node is not None:
-            if count == index:
+        index_count = 0 # initialize at - 
+        node = self.head # start at beginning of ll 
+        while (0 <= index_count < self.size):
+            if index_count == index: # when we reach index we're looking for, return node's data
                 return node.data
-            node = node.next  # move over to next node
-            count += 1
+            index_count += 1 # otherwise move onto next index and check again 
+            node = node.next # reset node to equal next node
 
     def insert_at_index(self, index, item):
-        """Insert the given item at the given index in this linked list, or raise ValueError if the given index is out of range of the list size."""
-
+        """Insert the given item at the given index in this linked list, or
+        raise ValueError if the given index is out of range of the list size.
+        Best case running time: O(1) if list is empty or item is first
+        Worst case running time: O(n) if index is later in list or not found"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-
-        elif index == 0:
-            # call on prepend method to add item to beginning
+    
+        elif (index == 0): # if index 0, simply add item to beginningg of linked list
             self.prepend(item)
-
-        elif node == None:
-            self.append(item)  # call on append method to add node
-
-        else:
+        elif (index == self.size): # if index is length of linked list, simply add item to end of linked list
+            self.append(item)
+        
+        else: # if neither of the above, create a new node for item
             new_node = Node(item)
-            node = self.head
-            while index > 1:
-                node = node.next
-                index -= 1
-            new_node.next = node.next
-            node.next = new_node
-            self.size += 1
+            previous_node = self.head  # reset start of ll
+            i = 0
+            while i != (index - 1) and previous_node is not None:
+                previous_node = previous_node.next
+                i += 1
+            next_node = previous_node.next
+            new_node.next = next_node # reset next_node
+            previous_node.next = new_node # reset new_node
+            self.size += 1 # increase size
 
     def append(self, item):
-        """Insert the given item at the tail of this linked list."""
-        # Create a new node to hold the given item
-        new_node = Node(item)
-        # Check if this linked list is empty
-        if self.is_empty():
-            # Assign head to new node
-            self.head = new_node
+        """Insert the given item at the tail of this linked list.
+        Best and worst case running time: O(1) because item is always inserted at the end"""
+        new_node = Node(item) # make new node to hold item 
+        if self.is_empty(): # check is ll is empty
+            self.head = new_node # make new node the head
         else:
-            # Otherwise insert new node after tail
-            self.tail.next = new_node
-        # Update tail to new node regardless
-        self.tail = new_node
+            self.tail.next = new_node # otherwise inert new node at end of ll 
+        self.tail = new_node # make last node our new node
+        self.size += 1 # increase size by one to reflect 
 
     def prepend(self, item):
-        """Insert the given item at the head of this linked list."""
+        """Insert the given item at the head of this linked list.
+        Best and worst case running time: O(1) because item is always inserted at the beginning"""
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty
@@ -138,83 +135,78 @@ class LinkedList(object):
             new_node.next = self.head
         # Update head to new node regardless
         self.head = new_node
+        self.size += 1
 
     def find(self, quality):
         """Return an item from this linked list satisfying the given quality.
         Best case running time: Omega(1) if item is near the head of the list.
         Worst case running time: O(n) if item is near the tail of the list or
         not present and we need to loop through all n nodes in the list."""
-        # Start at the head node
-        node = self.head  # Constant time to assign a variable reference
-        # Loop until the node is None, which is one node too far past the tail
-        while node is not None:  # Up to n iterations if we don't exit early
-            # Check if this node's data satisfies the given quality function
-            if quality(node.data):  # Constant time to call quality function
-                # We found data satisfying the quality function, so exit early
-                return node.data  # Constant time to return data
+        node = self.head  # start at the head node
+        # Loop until the node is None (one node past end)
+        while node is not None:  
+            # Check if this node's data satisfies given quality 
+            if quality(node.data): 
+                # exit if satisfied the quality
+                return node.data 
+            node = node.next  
+        return None  # return None if we never find node that satisfies quality  
+
+    def replace(self, old_data, new_data):
+        """Replace the given old_data in this linked list with given new_data
+        using the same node, or raise ValueError if old_data is not found.
+        Best case running time: O(1) if list is empty or item is first
+        Worst case running time: O(n) if old_data is later in list or not found"""
+        node = self.head # start at head node
+        found = None
+        # Loop until the node is None (one past end)
+        while node is not None:  
+            # Check if this node's data satisfies quality
+            if node.data == old_data:
+                found = node # found node
+                break
             # Skip to the next node
-            node = node.next  # Constant time to reassign a variable
-        # We never found data satisfying quality, but have to return something
-        return None  # Constant time to return None
-
-    def replace(self, old_item, new_item):
-        """Replace the given old_item in this linked list with given new_item using the same node, or raise ValueError if old_item is not found."""
-        # TODO: Find the node containing the given old_item and replace its
-        # data with new_item, without creating a new node object
-        node = self.head  # initialize current item as head
-        while node is not None:
-            if node.data == old_item:  # check if you found old_item
-                node.data = new_item  # reset old item to new item
-                return
-            node = node.next
-        # Raise error if needed
-        raise ValueError('Item not found: {}'.format(old_item))
-
+            node = node.next 
+        if found == None: # if we never find node that satisfies quality, raise error 
+            raise ValueError("value not found!")
+        found.data = new_data
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
-        # Start at the head node
-        node = self.head
-        # Keep track of the node before the one containing the given item
+        Best case running time: O(1) if list is empty or item is first
+        Worst case running time: O(n) if item is not found or is later in the list"""
+        node = self.head # start at head
+        # Keep track of the node before node containing item
         previous = None
-        # Create a flag to track if we have found the given item
-        found = False
-        # Loop until we have found the given item or the node is None
+        
+        found = False # Create variable to track if we have found item
+        # Loop until we have found item or the node is None
         while not found and node is not None:
-            # Check if the node's data matches the given item
-            if node.data == item:
-                # We found data matching the given item, so update found flag
-                found = True
+            if node.data == item: #Check if the node's data matches item
+                found = True # update found if we find matching item
             else:
-                # Skip to the next node
-                previous = node
-                node = node.next
+                previous = node   # Skip to the next node
+                node = node.next 
         # Check if we found the given item or we never did and reached the tail
         if found:
-            # Check if we found a node in the middle of this linked list
+            self.size -= 1
+            # Check if we found node in the middle of ll
             if node is not self.head and node is not self.tail:
                 # Update the previous node to skip around the found node
                 previous.next = node.next
-                # Unlink the found node from its next node
                 node.next = None
-            # Check if we found a node at the head
-            if node is self.head:
-                # Update head to the next node
-                self.head = node.next
-                # Unlink the found node from the next node
+
+            if node is self.head: # check if node found at head
+                self.head = node.next # update head
                 node.next = None
-            # Check if we found a node at the tail
-            if node is self.tail:
-                # Check if there is a node before the found node
+
+            if node is self.tail: # check if node at tail
+                # Check if node exists before found node
                 if previous is not None:
-                    # Unlink the previous node from the found node
                     previous.next = None
-                # Update tail to the previous node regardless
-                self.tail = previous
+                self.tail = previous # update tail 
         else:
-            # Otherwise raise an error to tell the user that delete has failed
+            # otherwise raise error
             raise ValueError('Item not found: {}'.format(item))
 
 
