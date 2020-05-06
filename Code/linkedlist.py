@@ -1,5 +1,6 @@
 #!python
 
+
 class Node(object):
 
     def __init__(self, data):
@@ -71,28 +72,47 @@ class LinkedList(object):
         return node_count
 
     def get_at_index(self, index):
-        """Return the item at the given index in this linked list, or
-        raise ValueError if the given index is out of range of the list size.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        """Return the item at the given index in this linked list, or raise ValueError if the given index is out of range of the list size."""
+
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
+
         # TODO: Find the node at the given index and return its data
+        node = self.head  # initialize at head of list
+        count = 0
+        while node is not None:
+            if count == index:
+                return node.data
+            node = node.next  # move over to next node
+            count += 1
 
     def insert_at_index(self, index, item):
-        """Insert the given item at the given index in this linked list, or
-        raise ValueError if the given index is out of range of the list size.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        """Insert the given item at the given index in this linked list, or raise ValueError if the given index is out of range of the list size."""
+
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node before the given index and insert item after it
+
+        elif index == 0:
+            # call on prepend method to add item to beginning
+            self.prepend(item)
+
+        elif node == None:
+            self.append(item)  # call on append method to add node
+
+        else:
+            new_node = Node(item)
+            node = self.head
+            while index > 1:
+                node = node.next
+                index -= 1
+            new_node.next = node.next
+            node.next = new_node
+            self.size += 1
 
     def append(self, item):
-        """Insert the given item at the tail of this linked list.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        """Insert the given item at the tail of this linked list."""
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty
@@ -106,8 +126,7 @@ class LinkedList(object):
         self.tail = new_node
 
     def prepend(self, item):
-        """Insert the given item at the head of this linked list.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        """Insert the given item at the head of this linked list."""
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty
@@ -139,13 +158,18 @@ class LinkedList(object):
         return None  # Constant time to return None
 
     def replace(self, old_item, new_item):
-        """Replace the given old_item in this linked list with given new_item
-        using the same node, or raise ValueError if old_item is not found.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        """Replace the given old_item in this linked list with given new_item using the same node, or raise ValueError if old_item is not found."""
         # TODO: Find the node containing the given old_item and replace its
         # data with new_item, without creating a new node object
-        pass
+        node = self.head  # initialize current item as head
+        while node is not None:
+            if node.data == old_item:  # check if you found old_item
+                node.data = new_item  # reset old item to new item
+                return
+            node = node.next
+        # Raise error if needed
+        raise ValueError('Item not found: {}'.format(old_item))
+
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
