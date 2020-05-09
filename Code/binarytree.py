@@ -105,7 +105,8 @@ class BinarySearchTree(object):
         TODO: Worst case running time: ??? under what conditions?"""
 
         new_node = BinaryTreeNode(item)
-        if self.is_empty():  # Handlecase where tree is empty
+
+        if self.is_empty():  # Handle case where tree is empty
             self.root = new_node  # create new root node
             self.size += 1  # increase tree size
             return
@@ -215,12 +216,12 @@ class BinarySearchTree(object):
         # Check if the given item less than node's data
         elif item < node.data:
             # Recursively descend to node's left child, if it exists
-            return self._find_parent_node_recursive(item, node=node.left, parent=node)
+            return self._find_parent_node_recursive(item, node.left, parent=node)
 
         # Check if the given item is greater than the node's data
         elif item > node.data:
             # recursively descend to node's right child, if it exists
-            return self._find_parent_node_recursive(item, node=node.right, parent=node)
+            return self._find_parent_node_recursive(item, node.right, parent=node)
 
     def delete(self, item):
         """Remove given item from this tree, if present, or raise ValueError.
@@ -246,13 +247,11 @@ class BinarySearchTree(object):
         TODO: Memory usage: ??? Why and under what conditions?"""
         # Traverse left subtree, if it exists
         if node is not None:
-            if node.left:
-                self._traverse_in_order_recursive(node.left, visit)
+            self._traverse_in_order_recursive(node.left, visit)
         # Visit this node's data with given function
-        visit(node.data)
+            visit(node.data)
 
         # Traverse right subtree, if it exists
-        if node.right:
             self._traverse_in_order_recursive(node.right, visit)
 
     def _traverse_in_order_iterative(self, node, visit):
