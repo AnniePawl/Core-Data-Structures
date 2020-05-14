@@ -259,6 +259,7 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
+        pass
         # TODO: Traverse in-order without using recursion (stretch challenge)
 
     def items_pre_order(self):
@@ -336,20 +337,20 @@ class BinarySearchTree(object):
         Start at the given node and visit each node with the given function.
         TODO: Running time: ??? Why and under what conditions?
         TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Create queue to store nodes not yet traversed in level-order
-        # queue = ...
-        # TODO: Enqueue given starting node
-        ...
-        # TODO: Loop until queue is empty
-        while ...:
-            # TODO: Dequeue node at front of queue
-            # node = ...
-            # TODO: Visit this node's data with given function
-            ...
-            # TODO: Enqueue this node's left child, if it exists
-            ...
-            # TODO: Enqueue this node's right child, if it exists
-            ...
+        # Create queue to store nodes not yet traversed in level-order
+        queue = Queue()
+
+        queue.enqueue(start_node)  # Enqueue given starting node
+        while not queue.is_empty():  # Loop until queue is empty
+            node = queue.dequeue()  # dequeue node at front of queue
+            visit(node.data)  # visit this node's data with given function
+
+            # Enqueue this node's left child, if it exists
+            if node.left:
+                queue.enqueue(node.left)
+            # Enqueue this node's right child, if it exists
+            if node.right:
+                queue.enqueue(node.right)
 
 
 def test_binary_search_tree():
